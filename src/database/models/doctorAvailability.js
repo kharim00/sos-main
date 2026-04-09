@@ -10,7 +10,7 @@ DoctorAvailability.init({
         allowNull: false,
     },
     doctorId: {
-        type: DataTypes.UUID,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     availableDate: {

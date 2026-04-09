@@ -5,17 +5,17 @@ class appointment extends Model {}
 
 appointment.init({
     id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
         allowNull: false,
     },
     doctorId: {
-        type: DataTypes.UUID,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     patientId: {
-        type: DataTypes.UUID,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     appointmentDate: {

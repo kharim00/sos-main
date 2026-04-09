@@ -5,7 +5,7 @@ class User extends Model{}
 
 User.init({
     id:{
-        type:DataTypes.UUID,
+        type:DataTypes.STRING,
         defaultValue:DataTypes.UUIDV4,
         allowNull:false,
         primaryKey:true
@@ -28,8 +28,7 @@ User.init({
         allowNull:false
     },
     role:{
-        type:DataTypes.STRING,
-        enum:['patient','doctor','admin'],
+        type:DataTypes.ENUM('patient','doctor','admin'),
         defaultValue:'patient',
         allowNull:false
     },
@@ -38,17 +37,16 @@ User.init({
     allowNull:true
     },
     gender:{
-        type:DataTypes.STRING,
-        enum:['male','female','others'],
-    
+        type:DataTypes.ENUM('male','female','others'),
+        allowNull:true
     },
     profile_image:{
         type:DataTypes.STRING,
         allowNull:true
     },
     status:{
-        type:DataTypes.STRING,
-        enum:['active','inactive','blocked']
+        type:DataTypes.ENUM('active','inactive','blocked'),
+        allowNull:true
     },
     emergency_contact:{
         type:DataTypes.STRING,

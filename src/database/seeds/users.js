@@ -13,6 +13,7 @@ export const seedUsers=async()=>{
         const hashPassword=await bcrypt.hash('defaultPassword123',10)
         const users = [
           {
+            id: '001',
             fullName: 'SHEMA',
             email: 'shema@gmail.com',
             phoneNUmber: '038373737373',
@@ -25,6 +26,7 @@ export const seedUsers=async()=>{
             password: hashPassword,
           },
           {
+            id: '002',
             fullName: 'ILONA',
             email: 'ilona@gmail.com',
             phoneNUmber: '038345678677373',
@@ -37,6 +39,7 @@ export const seedUsers=async()=>{
             password: hashPassword,
           },
           {
+            id: '011',
             fullName: 'Dr. Kay Uwera',
             email: 'dr.kay@gmail.com',
             phoneNUmber: '0781234567',
@@ -49,6 +52,7 @@ export const seedUsers=async()=>{
             password: hashPassword,
           },
           {
+            id: '012',
             fullName: 'Admin User',
             email: 'admin@gmail.com',
             phoneNUmber: '0780001112',

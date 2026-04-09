@@ -5,6 +5,8 @@ import usersRouter from "./src/routes/users.js";
 import appointmentsRouter from "./src/routes/appointments.js";
 import doctorAvailabilityRouter from "./src/routes/doctorAvailability.js";
 import notificationsRouter from "./src/routes/notifications.js";
+import authRouter from "./src/routes/auth.js";
+import doctorRouter from "./src/routes/doctor.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -13,7 +15,9 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 
 // Routes
+app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/doctors", doctorRouter);
 app.use("/api/appointments", appointmentsRouter);
 app.use("/api/doctor-availability", doctorAvailabilityRouter);
 app.use("/api/notifications", notificationsRouter);
@@ -30,7 +34,10 @@ sequelize.authenticate()
         console.log(`Server is running on http://localhost:${PORT}`);
         console.log(`Your database is running🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥`);
         console.log(`\nAPI Endpoints:`);
+        console.log(`  POST   http://localhost:${PORT}/api/auth/register`);
+        console.log(`  POST   http://localhost:${PORT}/api/auth/login`);
         console.log(`  GET/POST   http://localhost:${PORT}/api/users`);
+        console.log(`  GET/POST   http://localhost:${PORT}/api/doctors`);
         console.log(`  GET/POST   http://localhost:${PORT}/api/appointments`);
         console.log(`  GET/POST   http://localhost:${PORT}/api/doctor-availability`);
         console.log(`  GET/POST   http://localhost:${PORT}/api/notifications`);
