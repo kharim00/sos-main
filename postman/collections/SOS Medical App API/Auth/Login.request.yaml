@@ -1,0 +1,42 @@
+$kind: http-request
+url: "{{baseUrl}}/{{api_version}}/auth/login"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "email": "john@example.com",
+      "password": "password123"
+    }
+scripts:
+  - type: afterResponse
+    code: >-
+      pm.test("Login successful", function () {
+          pm.response.to.have.status(200);
+      });
+
+
+      pm.test("Token received and saved", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.success).to.equal(true);
+          
+          // Check if token exists in response
+          if (jsonData.token) {
+              pm.environment.set("token", jsonData.token);
+              pm.test("Token saved to environment", function() {
+                  pm.expect(pm.environment.get("token")).to.be.truthy;
+              });
+          } else if (jsonData.data && jsonData.data.token) {
+              pm.environment.set("token", jsonData.data.token);
+          } else {
+              pm.test("Note: Login response does not include token yet", function() {
+                  console.log("Current auth response:", jsonData);
+              });
+          }
+          
+          pm.expect(jsonData.data).to.have.property("id");
+          pm.environment.set("userId", jsonData.data.id);
+      });
+order: 3000

@@ -1,0 +1,31 @@
+$kind: http-request
+url: "{{baseUrl}}/{{api_version}}/users"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "fullName": "Jane Smith",
+      "email": "jane@example.com",
+      "password": "password123",
+      "phone": "9876543210",
+      "role": "patient"
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 201 or 200", function () {
+          pm.expect(pm.response.code).to.be.oneOf([200, 201]);
+      });
+
+      pm.test("Response has ID", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property("id");
+      });
+order: 3000

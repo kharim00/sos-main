@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/{{api_version}}/users/{{userId}}"
+method: DELETE
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200 or 204", function () {
+          pm.expect(pm.response.code).to.be.oneOf([200, 204]);
+      });
+order: 5000

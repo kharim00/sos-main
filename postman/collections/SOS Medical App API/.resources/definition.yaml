@@ -1,0 +1,29 @@
+$kind: collection
+description: Complete CRUD API with Token Authentication
+variables:
+  baseUrl: http://localhost:5000
+  api_version: api
+  token: ""
+  userId: "1"
+  doctorId: "1"
+  appointmentId: "1"
+scripts:
+  - type: http:beforeRequest
+    code: |-
+      // Pre-request script runs before each request
+      // This adds the Bearer token to Authorization header if token exists
+
+      const token = pm.environment.get('token');
+      if (token) {
+          pm.request.headers.add({
+              key: 'Authorization',
+              value: 'Bearer ' + token
+          });
+      }
+    language: text/javascript
+auth:
+  - id: 74ba5bd1-cb05-4eb6-84b3-685be822e826
+    type: bearer
+    name: bearer auth
+    credentials:
+      token: "{{token}}"

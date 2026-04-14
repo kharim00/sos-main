@@ -1,0 +1,30 @@
+$kind: http-request
+url: "{{baseUrl}}/{{api_version}}/auth/register"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "fullName": "John Doe",
+      "email": "john@example.com",
+      "password": "password123",
+      "phone": "1234567890",
+      "role": "patient",
+      "location": "New York"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("Registration successful", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.success).to.equal(true);
+          pm.expect(jsonData.data).to.have.property("id");
+          pm.environment.set("userId", jsonData.data.id);
+      });
+order: 2000
